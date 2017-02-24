@@ -8,10 +8,9 @@ FROM php:5.6-fpm
 
 #COPY sources.list /etc/apt/sources.list
 
-RUN apt-get update && \
-    apt-get install -y nginx supervisor libz-dev libmemcached-dev && \
-    pecl install memcached && \
-    docker-php-ext-enable memcached
+RUN apt-get update && apt-get install -y nginx supervisor libmemcached-dev zlib1g-dev \
+    && pecl install memcached-2.2.0 \
+    && docker-php-ext-enable memcached
 
 COPY index.php /var/www/index.php
 RUN rm /etc/nginx/sites-enabled/app.conf
